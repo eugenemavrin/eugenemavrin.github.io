@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  dir="ltr" lang="ru" xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TП: Запуск программ Java и обработка аргументов командной строки</title>
+    <link rel="shortcut icon" href="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=favicon&amp;component=theme" />
+    <meta name="description" content="
+Кафедра ИУ-3
+Информационные системы и телекоммуникации
+МГТУ им. Н.Э. Баумана
+" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, TП: Запуск программ Java и обработка аргументов командной строки" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/yui_combo.php?3.4.1/build/cssreset/reset-min.css&amp;3.4.1/build/cssfonts/fonts-min.css&amp;3.4.1/build/cssgrids/grids-min.css&amp;3.4.1/build/cssbase/base-min.css" /><script type="text/javascript" src="https://moodle.iu3.bmstu.ru/lib/yui/3.4.1/build/yui/yui-min.js"></script><script type="text/javascript" src="https://moodle.iu3.bmstu.ru/theme/yui_combo.php?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.9.0/build/connection/connection-min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/yui_combo.php?2.9.0/build/assets/skins/sam/skin.css" />
+<script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_calculated" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_calculatedmulti" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_calculatedsimple" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_essay" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_match" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_multianswer" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_multichoice" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_numerical" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_shortanswer" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=qtype_truefalse" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_assignment" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_chat" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_choice" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_data" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_feedback" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_forum" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_glossary" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_imscp" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_lesson" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_lti" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_quiz" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_resource" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_scorm" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_survey" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_url" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_wiki" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mod_workshop" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_blog_tags" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_community" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_course_list" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_course_summary" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_html" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_messages" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_myprofile" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_navigation" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_online_users" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_quiz_results" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_recent_activity" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_search_forums" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_settings" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_tag_flickr" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_tag_youtube" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=block_tags" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=filter_glossary" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=filter_mediaplugin" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=format_topics" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=format_weeks" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_log" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_loglive" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_outline" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_participation" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_progress" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=report_stats" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=gradereport_grader" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=gradereport_user" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=gradingform_rubric" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=mnetservice_enrol" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_customlang" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_health" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_langimport" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_profiling" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_qeupgradehelper" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=tool_unittest" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=quiz_grading" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=workshopform_rubric" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=workshopallocation_manual" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=plugin&amp;subtype=workshopallocation_random" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=core" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=admin" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=blocks" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=calendar" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=course" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=dock" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=grade" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=message" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=question" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=base&amp;sheet=user" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=text" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=core" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=course" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=mods" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=blocks" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=tabs" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=admin" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=tables" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=popups" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?theme=nonzero&amp;type=parent&amp;subtype=canvas&amp;sheet=question" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?sheet=core&amp;theme=nonzero&amp;type=theme" />
+<link rel="stylesheet" type="text/css" href="https://moodle.iu3.bmstu.ru/theme/styles_debug.php?sheet=pagelayout&amp;theme=nonzero&amp;type=theme" />
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {}; var moodleConfigFn = function(me) {var p = me.path, b = me.name.replace(/^moodle-/,'').split('-', 3), n = b.pop();if (/(skin|core)/.test(n)) {n = b.pop();me.type = 'css';};me.path = b.join('-')+'/'+n+'/'+n+'.'+me.type;}; var galleryConfigFn = function(me) {var p = me.path,v=M.yui.galleryversion,f;if(/-(skin|core)/.test(me.name)) {me.type = 'css';p = p.replace(/-(skin|core)/, '').replace(/\.js/, '.css').split('/'), f = p.pop().replace(/(\-(min|debug))/, '');if (/-skin/.test(me.name)) {p.splice(p.length,0,v,'assets','skins','sam', f);} else {p.splice(p.length,0,v,'assets', f);};} else {p = p.split('/'), f = p.pop();p.splice(p.length,0,v, f);};me.path = p.join('/');};
+M.yui.loader = {"base":"https:\/\/moodle.iu3.bmstu.ru\/lib\/yui\/3.4.1\/build\/","comboBase":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?","combine":true,"filter":"","insertBefore":"firstthemesheet","modules":{"yui2-event":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/event\/event-min.js"},"yui2-animation":{"type":"js","requires":["yui2-dom","yui2-event"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/animation\/animation-min.js"},"yui2-swfstore":{"type":"js","requires":["yui2-element","yui2-cookie","yui2-swf"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/swfstore\/swfstore-min.js"},"yui2-datatable":{"requires":["yui2-element","yui2-datasource"],"type":"js","optional":["yui2-calendar","yui2-dragdrop","yui2-paginator"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/datatable\/datatable-min.js"},"yui2-swfdetect":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/swfdetect\/swfdetect-min.js"},"yui2-menu":{"requires":["yui2-containercore"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/menu\/menu-min.js"},"yui2-treeview":{"requires":["yui2-event","yui2-dom"],"type":"js","optional":["yui2-json","yui2-animation","yui2-calendar"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/treeview\/treeview-min.js"},"yui2-get":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/get\/get-min.js"},"yui2-progressbar":{"requires":["yui2-element"],"type":"js","optional":["yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/progressbar\/progressbar-min.js"},"yui2-uploader":{"type":"js","requires":["yui2-element"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/uploader\/uploader-min.js"},"yui2-datasource":{"requires":["yui2-event"],"type":"js","optional":["yui2-connection"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/datasource\/datasource-min.js"},"yui2-profiler":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/profiler\/profiler-min.js"},"yui2-connection":{"supersedes":["yui2-connectioncore"],"requires":["yui2-event"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/connection\/connection-min.js"},"yui2-json":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/json\/json-min.js"},"yui2-datemath":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/datemath\/datemath-min.js"},"yui2-calendar":{"supersedes":["yui2-datemath"],"requires":["yui2-event","yui2-dom"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/calendar\/calendar-min.js"},"yui2-simpleeditor":{"requires":["yui2-element"],"type":"js","optional":["yui2-containercore","yui2-menu","yui2-button","yui2-animation","yui2-dragdrop"],"pkg":"editor","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/editor\/simpleeditor-min.js"},"yui2-swf":{"supersedes":["yui2-swfdetect"],"requires":["yui2-element"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/swf\/swf-min.js"},"yui2-event-simulate":{"type":"js","requires":["yui2-event"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/event-simulate\/event-simulate-min.js"},"yui2-yuiloader-dom-event":{"supersedes":["yui2-yahoo","yui2-dom","yui2-event","yui2-get","yui2-yuiloader","yui2-yahoo-dom-event"],"rollup":5,"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/yuiloader-dom-event\/yuiloader-dom-event.js"},"yui2-storage":{"requires":["yui2-yahoo","yui2-event","yui2-cookie"],"type":"js","optional":["yui2-swfstore"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/storage\/storage-min.js"},"yui2-container":{"supersedes":["yui2-containercore"],"requires":["yui2-dom","yui2-event"],"type":"js","optional":["yui2-dragdrop","yui2-animation","yui2-connection"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/container\/container-min.js"},"yui2-profilerviewer":{"requires":["yui2-profiler","yui2-yuiloader","yui2-element"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/profilerviewer\/profilerviewer-min.js"},"yui2-imagecropper":{"requires":["yui2-dragdrop","yui2-element","yui2-resize"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/imagecropper\/imagecropper-min.js"},"yui2-paginator":{"requires":["yui2-element"],"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/paginator\/paginator-min.js"},"yui2-tabview":{"requires":["yui2-element"],"type":"js","optional":["yui2-connection"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/tabview\/tabview-min.js"},"yui2-layout":{"requires":["yui2-element"],"type":"js","optional":["yui2-animation","yui2-dragdrop","yui2-resize","yui2-selector"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/layout\/layout-min.js"},"yui2-imageloader":{"type":"js","requires":["yui2-event","yui2-dom"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/imageloader\/imageloader-min.js"},"yui2-containercore":{"requires":["yui2-dom","yui2-event"],"type":"js","pkg":"container","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/container\/container_core-min.js"},"yui2-event-mouseenter":{"type":"js","requires":["yui2-dom","yui2-event"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/event-mouseenter\/event-mouseenter-min.js"},"yui2-logger":{"requires":["yui2-event","yui2-dom"],"type":"js","optional":["yui2-dragdrop"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/logger\/logger-min.js"},"yui2-cookie":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/cookie\/cookie-min.js"},"yui2-stylesheet":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/stylesheet\/stylesheet-min.js"},"yui2-connectioncore":{"requires":["yui2-event"],"type":"js","pkg":"connection","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/connection\/connection_core-min.js"},"yui2-utilities":{"supersedes":["yui2-yahoo","yui2-event","yui2-dragdrop","yui2-animation","yui2-dom","yui2-connection","yui2-element","yui2-yahoo-dom-event","yui2-get","yui2-yuiloader","yui2-yuiloader-dom-event"],"rollup":8,"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/utilities\/utilities.js"},"yui2-dragdrop":{"type":"js","requires":["yui2-dom","yui2-event"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/dragdrop\/dragdrop-min.js"},"yui2-colorpicker":{"requires":["yui2-slider","yui2-element"],"type":"js","optional":["yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/colorpicker\/colorpicker-min.js"},"yui2-event-delegate":{"requires":["yui2-event"],"type":"js","optional":["yui2-selector"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/event-delegate\/event-delegate-min.js"},"yui2-yuiloader":{"type":"js","supersedes":["yui2-yahoo","yui2-get"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/yuiloader\/yuiloader-min.js"},"yui2-button":{"requires":["yui2-element"],"type":"js","optional":["yui2-menu"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/button\/button-min.js"},"yui2-resize":{"requires":["yui2-dragdrop","yui2-element"],"type":"js","optional":["yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/resize\/resize-min.js"},"yui2-element":{"requires":["yui2-dom","yui2-event"],"type":"js","optional":["yui2-event-mouseenter","yui2-event-delegate"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/element\/element-min.js"},"yui2-history":{"type":"js","requires":["yui2-event"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/history\/history-min.js"},"yui2-yahoo":{"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/yahoo\/yahoo-min.js"},"yui2-element-delegate":{"type":"js","requires":["yui2-element"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/element-delegate\/element-delegate-min.js"},"yui2-charts":{"type":"js","requires":["yui2-element","yui2-json","yui2-datasource","yui2-swf"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/charts\/charts-min.js"},"yui2-slider":{"requires":["yui2-dragdrop"],"type":"js","optional":["yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/slider\/slider-min.js"},"yui2-selector":{"type":"js","requires":["yui2-yahoo","yui2-dom"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/selector\/selector-min.js"},"yui2-yuitest":{"requires":["yui2-logger"],"type":"js","optional":["yui2-event-simulate"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/yuitest\/yuitest-min.js"},"yui2-carousel":{"requires":["yui2-element"],"type":"js","optional":["yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/carousel\/carousel-min.js"},"yui2-autocomplete":{"requires":["yui2-dom","yui2-event","yui2-datasource"],"type":"js","optional":["yui2-connection","yui2-animation"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/autocomplete\/autocomplete-min.js"},"yui2-yahoo-dom-event":{"supersedes":["yui2-yahoo","yui2-event","yui2-dom"],"rollup":3,"type":"js","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/yahoo-dom-event\/yahoo-dom-event.js"},"yui2-dom":{"type":"js","requires":["yui2-yahoo"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/dom\/dom-min.js"},"yui2-editor":{"supersedes":["yui2-simpleeditor"],"requires":["yui2-menu","yui2-element","yui2-button"],"type":"js","optional":["yui2-animation","yui2-dragdrop"],"fullpath":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?2.9.0\/build\/editor\/editor-min.js"},"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/lib\/javascript.php?file=%2Frepository%2Ffilepicker.js&rev=307","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","escape","yui2-button","yui2-container","yui2-layout","yui2-menu","yui2-treeview","yui2-dragdrop","yui2-cookie"]},"core_dock":{"name":"core_dock","fullpath":"https:\/\/moodle.iu3.bmstu.ru\/lib\/javascript.php?file=%2Fblocks%2Fdock.js&rev=307","requires":["base","node","event-custom","event-mouseenter","event-resize"]}},"groups":{"moodle":{"name":"moodle","base":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?moodle\/307\/","comboBase":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?","combine":true,"filter":"","ext":false,"root":"moodle\/307\/","patterns":{"moodle-":{"group":"moodle","configFn":moodleConfigFn},"root":"moodle"}},"local":{"name":"gallery","base":"https:\/\/moodle.iu3.bmstu.ru\/lib\/yui\/gallery\/","comboBase":"https:\/\/moodle.iu3.bmstu.ru\/theme\/yui_combo.php?","combine":true,"filter":"","ext":false,"root":"gallery\/","patterns":{"gallery-":{"group":"gallery","configFn":galleryConfigFn},"root":"gallery"}}}};
+M.cfg = {"wwwroot":"https:\/\/moodle.iu3.bmstu.ru","sesskey":"yajWkgQAHb","loadingicon":"https:\/\/moodle.iu3.bmstu.ru\/theme\/image.php?theme=nonzero&image=i%2Floading_small","themerev":-1,"theme":"nonzero","jsrev":"307"};
+//]]>
+</script>
+<script type="text/javascript" src="https://moodle.iu3.bmstu.ru/lib/javascript.php?file=%2Flib%2Fjavascript-static.js&amp;rev=307"></script>
+<script type="text/javascript" src="https://moodle.iu3.bmstu.ru/theme/javascript.php?theme=nonzero&amp;rev=-1&amp;type=head"></script>
+</head>
+
+<body id="page-mod-page-view" class=" path-mod path-mod-page gecko dir-ltr lang-ru yui-skin-sam yui3-skin-sam moodle-iu3-bmstu-ru pagelayout-incourse course-95 context-1593 cmid-592 category-9 side-pre-only">
+<div class="skiplinks"><a class="skip" href="#maincontent">К основному содержимому</a></div>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+<div id="page">
+    <div id="page-header" >
+		<div id="page-header-wrapper" class="wrapper clearfix">
+	            		    <h1 class="headermain">Технология программирования</h1>
+		        <div class="headermenu"><div class="logininfo">Вы зашли под именем <a href="https://moodle.iu3.bmstu.ru/user/profile.php?id=374">Маврин Евгений Михайлович</a>  (<a href="https://moodle.iu3.bmstu.ru/login/logout.php?sesskey=yajWkgQAHb">Выход</a>)</div>	            </div>
+	        	    </div>
+    </div>
+
+<div id="top">
+
+                    <div class="navbar">
+            	<div class="wrapper clearfix">
+	                <div class="breadcrumb"><span class="accesshide">Путь к странице</span><ul><li><a title="Моя домашняя страница" href="https://moodle.iu3.bmstu.ru/my/">Моя домашняя страница</a></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25B6;</span> <span tabindex="0">Мои курсы</span></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25B6;</span> <a title="Технология программирования" href="https://moodle.iu3.bmstu.ru/course/view.php?id=95">TП</a></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25B6;</span> <span tabindex="0">Общее</span></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25B6;</span> <a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=592">...грамм Java и обработка аргументов командной строки</a></li></ul></div>
+    	            <div class="navbutton"> </div>
+    	        </div>
+            </div>
+        
+<!-- END OF HEADER -->
+
+	<div id="page-content-wrapper" class="wrapper clearfix">
+	    <div id="page-content">
+    	    <div id="region-main-box">
+        	    <div id="region-post-box">
+
+	                <div id="region-main-wrap">
+    	                <div id="region-main">
+        	                <div class="region-content">
+            	                <span id="maincontent"></span><h2 id="pageheading" class="main">Запуск программ Java и обработка аргументов командной строки</h2><div class="box generalbox center clearfix"><div class="no-overflow"><p><span style="line-height: 1.4;">Чтобы запустить Java программу следует указать имя класса Java в командной строке. Например, допустим, имеется такой класс:</span></p>
+<pre>    public class MyProgram {
+        ...
+
+        // Точка входа в мою программу.
+        public static void main(String[] args) {
+            ...  // Код моей программы.
+        }
+    }
+</pre>
+<p>(Этот код должен храниться в файле <span style="color: #333399; font-family: 'courier new', courier, monospace;">MyProgram.java</span>, и компилироваться по команде</p>
+<pre>    java MyProgram 1234 www.caltech.edu "olive festival"
+</pre>
+<p>Для запуска этого Java кода, надо вызвать виртуальную машину (Java Virtual Machine/JVM) с командой:</p>
+<pre>    java MyProgram
+</pre>
+<p>JVM загрузит MyProgram.class, и начнет исполнение вашей программы, начиная с метода main.  Это <i>точка</i><i> </i><i>входа</i> в программу.</p>
+<p>Метод main должен быть объявлен по определенным правилам, для того чтобы JVM смогла отличить его от других методов класса. Он должен иметь модификаторы public и static,иметь один аргумент типа String[] и не возвращать значения (void). Если в классе метод main в точности соответствующий этому описанию, при попытке запуска программы вам вернется сообщение об ошибке:</p>
+<pre>    java MyProgram
+</pre>
+<p>    Exception in thread "main" java.lang.NoSuchMethodError: main</p>
+<p>Если вы видите такую ошибку, проверьте правильно ли вы объявили в тексте программы метод  main. В нашем примере все сделано правильно.</p>
+<p><b>Аргументы командной строки</b></p>
+<p>Часто, в программе требуется обработать аргументы, указанные в командной строке. Например, программу можно запустить так:</p>
+<pre>    java MyProgram 1234 www.caltech.edu "olive festival"</pre>
+<p>Программе нужно как то получить доступ к значениям указанным в командной строке. Это можно сделать через аргумент типа String[], который передается методу main. Заметим, что это массив строк. Каждый элемент в массиве содержит одно из значений указанных в командной строке.</p>
+<p>Для приведенного выше примера, массив args будет содержать следующие значения:</p>
+<pre>args.length = 3
+args[0] = "1234"
+args[1] = "www.caltech.edu"
+args[2] = "olive festival"
+</pre>
+<p>Аргументы Java программы разделяются пробелами или символами табуляции, кроме случая, кода они заключены в двойные кавычки. В нашем примере, первые два аргумента: "1234" и "www.caltech.edu", так как Java VM разделяет их, с помощью пробела. Третий аргумент, "olive festival", не разбивается на отельные аргументы, так как он заключен в двойные кавычки.</p>
+<p>Учтите, что пробелы, расположенные между аргументами, а также в начале и конце списка аргументов, удаляются и не присутствуют в массиве args. В массив также не попадают двойные кавычки, в которые заключены аргументы.</p>
+<p>(Если вы программировали на C или C++,  вы должны заметить разницу между тем как аргументы передаются программам на C и C++,  и как они передаются программам на языке Java. В C и C++, первый элемент массива argv[0] это <i>имя самой программы</i>, а argv[1] первый аргумент командной строки программы. В Java, args[0] это первый аргумент командной строки программы а имя программы отсутствует в аргументах.)</p>
+<p><b>Числа</b><b> </b><b>в</b><b> </b><b>командной</b><b> </b><b>строке</b><b></b></p>
+<p>Если программа на языке Java получает числовые параметры через командную строку, она должна явно преобразовать строковое представление числа в значение числового типа. Вернемся к нашему примеру. В командной строке, первый аргумент "1234", имеет тип String. Его требуется преобразовать в целое число. Для выполнения таких преобразований используют класса из пакета java.lang . Например, для преобразования args[0] в целое число, можно сделать так:</p>
+<pre>    public static void main(String[] args) {
+        int num = 0;
+
+        ...
+
+        try {
+            // Преобразовать строку в целое.
+            num = Integer.parseInt(args[0]);
+        }
+        catch (NumberFormatException nfe) {
+            // Первый аргумент командной строки не целое число.  Выводим
+            // сообщение об ошибке и завершаем работу.
+            System.out.println("Первый аргумент должен быть целым числом.");
+            System.exit(1);
+        }
+
+        ...  // Код использующий значения аргументов командной строки.
+    }
+</pre>
+<p>К этому коду есть несколько важных замечаний:</p>
+<ul>
+<ul>
+<ul>
+<li>Наиболее важно здесь, то что вы <i>обязаны обрабатывать ошибки ввода пользователя</i><i>!</i> Функция преобразования строки в целое число выдает исключение java.lang.NumberFormatException в случае ошибки преобразования. Ваша программа не должна “падать” в случае если во входных данных имеются ошибки. Вместо этого, следует перехватить исключение, напечатать на экране понятное сообщение об ошибке, и затем завершить программу с кодом отличным от нуля.</li>
+<li>Второе важное замечание заключается в том, что переменная num объявлена и проинициализирована перед блоком try/catch.</li>
+</ul>
+</ul>
+</ul>
+<p>Переменная должна быть <i>объявлена</i> перед блоком try/catch потому что она используется после того как блок завершит работу; если объявить ее внутри блока, она будет доступна только внутри блока.</p>
+<p>Переменная должна быть проинициализирована перед блоком try/catch потому что, если этого не сделать, компилятор Java выдаст сообщение о "не инициализированной переменной " во время компиляции.</p>
+<p>Ниже приведен не полных список примитивных типов данных и функций которые можно использовать для преобразования аргументов командной строки. Эти классы находятся в пакете java.lang, и следовательно доступны без добавления каких либо директив import к программе. Функции преобразования статические и это значит, что вам не надо создавать какие либо новые объекты, прежде чем вызывать эти функции.</p>
+<table border="0" cellpadding="0" style="width: 1407px;">
+<tbody>
+<tr>
+<td width="217">
+<p><span style="font-family: verdana, arial, helvetica, sans-serif; font-size: small;">Примитивный тип данных</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: verdana, arial, helvetica, sans-serif; font-size: small;">Функция преобразования</span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">boolean</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Boolean.html#parseBoolean(java.lang.String)">boolean Boolean.parseBoolean(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">Int</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html#parseInt(java.lang.String)">int Integer.parseInt(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">Long</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Long.html#parseLong(java.lang.String)">long Long.parseLong(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">float</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Float.html#parseFloat(java.lang.String)">float Float.parseFloat(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">double</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Double.html#parseDouble(java.lang.String)">double Double.parseDouble(String)</a></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div align="center"><hr size="2" width="100%" noshade="noshade" align="center" /></div>
+<p>Оригинал: Copyright (C) 2008, California Institute of Technology.</p></div></div><div class="modified">Последнее изменение: Четверг 7 Февраль 2013, 09:49</div>                	        </div>
+                    	</div>
+	                </div>
+
+	                    	            <div id="region-pre" class="block-region">
+        	            <div class="region-content">
+            	            <a href="#sb-1" class="skip-block">Пропустить Навигация</a><div id="inst4" class="block_navigation  block"><div class="header"><div class="title"><div class="block_action"></div><h2>Навигация</h2></div></div><div class="content"><ul class="block_tree list"><li class="type_unknown depth_1 contains_branch" aria-expanded="true"><p class="tree_item branch navigation_node"><a title="Моя домашняя страница" href="https://moodle.iu3.bmstu.ru/my/">Моя домашняя страница</a></p><ul><li class="type_setting depth_2 item_with_icon"><p class="tree_item leaf hasicon"><a title="Домашняя страница" href="https://moodle.iu3.bmstu.ru/?redirect=0"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Домашняя страница</a></p></li>
+<li class="type_course depth_2 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span title="ИУ-3 Система управления обучением" tabindex="0">Страницы сайта</span></p><ul><li class="type_custom depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Site blogs" href="https://moodle.iu3.bmstu.ru/blog/index.php?courseid=0"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Site blogs</a></p></li>
+<li class="type_custom depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Теги" href="https://moodle.iu3.bmstu.ru/tag/search.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Теги</a></p></li>
+<li class="type_custom depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Календарь" href="https://moodle.iu3.bmstu.ru/calendar/view.php?view=month"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Календарь</a></p></li>
+<li class="type_activity depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=29" id="action_link55b35dd44a3331"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Ftext" />Все курсы</a></p></li>
+<li class="type_activity depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Форум" href="https://moodle.iu3.bmstu.ru/mod/forum/view.php?id=41"><img alt="Форум" class="smallicon navicon" title="Форум" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=forum" />Новости</a></p></li></ul></li>
+<li class="type_user depth_2 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Мой профиль</span></p><ul><li class="type_custom depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Просмотр профиля" href="https://moodle.iu3.bmstu.ru/user/profile.php?id=374"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Просмотр профиля</a></p></li>
+<li class="type_custom depth_3 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Сообщения форума</span></p><ul><li class="type_custom depth_4 item_with_icon"><p class="tree_item leaf hasicon"><a title="Сообщения" href="https://moodle.iu3.bmstu.ru/mod/forum/user.php?id=374"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Сообщения</a></p></li>
+<li class="type_custom depth_4 item_with_icon"><p class="tree_item leaf hasicon"><a title="Обсуждения" href="https://moodle.iu3.bmstu.ru/mod/forum/user.php?id=374&amp;mode=discussions"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Обсуждения</a></p></li></ul></li>
+<li class="type_unknown depth_3 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Блоги</span></p><ul><li class="type_custom depth_4 item_with_icon"><p class="tree_item leaf hasicon"><a title="View all of my entries" href="https://moodle.iu3.bmstu.ru/blog/index.php?userid=374"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />View all of my entries</a></p></li>
+<li class="type_custom depth_4 item_with_icon"><p class="tree_item leaf hasicon"><a title="Add a new entry" href="https://moodle.iu3.bmstu.ru/blog/edit.php?action=add"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Add a new entry</a></p></li>
+<li class="type_setting depth_4 item_with_icon"><p class="tree_item leaf hasicon"><a title="Blog RSS feed" href="https://moodle.iu3.bmstu.ru/rss/file.php/1/4db1777c60fdff57ba8f7c0b2f9b58ac/blog/user/374/rss.xml"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Frss" />Blog RSS feed</a></p></li></ul></li>
+<li class="type_setting depth_3 item_with_icon"><p class="tree_item leaf hasicon"><a title="Сообщения" href="https://moodle.iu3.bmstu.ru/message/index.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Сообщения</a></p></li></ul></li>
+<li class="type_system depth_2 contains_branch" aria-expanded="true"><p class="tree_item branch canexpand"><span tabindex="0">Мои курсы</span></p><ul><li class="type_course depth_3 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_1"><a title="Управление данными (Б)" href="https://moodle.iu3.bmstu.ru/course/view.php?id=107">УД (Б)</a></p></li>
+<li class="type_course depth_3 contains_branch" aria-expanded="true"><p class="tree_item branch canexpand"><a title="Технология программирования" href="https://moodle.iu3.bmstu.ru/course/view.php?id=95">TП</a></p><ul><li class="type_unknown depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><a title="Участники" href="https://moodle.iu3.bmstu.ru/user/index.php?id=95">Участники</a></p><ul><li class="type_custom depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Course blogs" href="https://moodle.iu3.bmstu.ru/blog/index.php?courseid=595"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Course blogs</a></p></li>
+<li class="type_user depth_5 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><a title="Маврин Евгений Михайлович" href="https://moodle.iu3.bmstu.ru/user/view.php?id=374&amp;course=95">Маврин Евгений Михайлович</a></p><ul><li class="type_custom depth_6 item_with_icon"><p class="tree_item leaf hasicon"><a title="Просмотр профиля" href="https://moodle.iu3.bmstu.ru/user/view.php?id=374&amp;course=95"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Просмотр профиля</a></p></li>
+<li class="type_custom depth_6 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Сообщения форума</span></p><ul><li class="type_custom depth_7 item_with_icon"><p class="tree_item leaf hasicon"><a title="Сообщения" href="https://moodle.iu3.bmstu.ru/mod/forum/user.php?id=374&amp;course=95"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Сообщения</a></p></li>
+<li class="type_custom depth_7 item_with_icon"><p class="tree_item leaf hasicon"><a title="Обсуждения" href="https://moodle.iu3.bmstu.ru/mod/forum/user.php?id=374&amp;course=95&amp;mode=discussions"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Обсуждения</a></p></li></ul></li>
+<li class="type_unknown depth_6 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Блоги</span></p><ul><li class="type_custom depth_7 item_with_icon"><p class="tree_item leaf hasicon"><a title="View all of my entries" href="https://moodle.iu3.bmstu.ru/blog/index.php?userid=374"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />View all of my entries</a></p></li>
+<li class="type_custom depth_7 item_with_icon"><p class="tree_item leaf hasicon"><a title="Add a new entry" href="https://moodle.iu3.bmstu.ru/blog/edit.php?action=add"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Add a new entry</a></p></li>
+<li class="type_setting depth_7 item_with_icon"><p class="tree_item leaf hasicon"><a title="Blog RSS feed" href="https://moodle.iu3.bmstu.ru/rss/file.php/1/4db1777c60fdff57ba8f7c0b2f9b58ac/blog/user/374/rss.xml"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Frss" />Blog RSS feed</a></p></li></ul></li>
+<li class="type_setting depth_6 item_with_icon"><p class="tree_item leaf hasicon"><a title="Сообщения" href="https://moodle.iu3.bmstu.ru/message/index.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Сообщения</a></p></li></ul></li></ul></li>
+<li class="type_structure depth_4 contains_branch" aria-expanded="true"><p class="tree_item branch"><span tabindex="0">Общее</span></p><ul><li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Форум" href="https://moodle.iu3.bmstu.ru/mod/forum/view.php?id=551"><img alt="Форум" class="smallicon navicon" title="Форум" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=forum" />Новостной форум</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=589"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Важная информация о курсе</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=591"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Руководство по стилю программирования на языке Java</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=666"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Настройка программы проверки стиля checkstyle</a></p></li>
+<li class="type_activity depth_5 item_with_icon current_branch"><p class="tree_item leaf hasicon active_tree_node"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=592"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />...грамм Java и обработка аргументов командной строки</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=686"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Правила оформления заданий</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=1134"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Отображение кириллицы в консоли Windows</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=555"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />MSDN</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=556"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Stackoverflow</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=557"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Channel 9</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=558" id="action_link55b35dd44a3332"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Base64</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=559" id="action_link55b35dd44a3333"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Android SDK</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=560"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Eclipse</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=561" id="action_link55b35dd44a3334"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />TechDays LINQ</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=562" id="action_link55b35dd44a3335"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Основы LINQ</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=563" id="action_link55b35dd44a3336"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Introduction to Objective-C</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=656" id="action_link55b35dd44a3337"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fweb" />Деннис Ритчи, История создания языка С (англ)</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="URL-ссылка" href="https://moodle.iu3.bmstu.ru/mod/url/view.php?id=870"><img alt="URL-ссылка" class="smallicon navicon" title="URL-ссылка" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fvideo" />...вка виртуальной машины Linux и компиляция программ</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Файл" href="https://moodle.iu3.bmstu.ru/mod/resource/view.php?id=911"><img alt="Файл" class="smallicon navicon" title="Файл" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fpdf" />Материал для выполнения дополнительного задания #1</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=910"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Дополнительное задание #1</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Задание" href="https://moodle.iu3.bmstu.ru/mod/assignment/view.php?id=912"><img alt="Задание" class="smallicon navicon" title="Задание" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=assignment" />Отправить решение дополнительного задания #1 </a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Файл" href="https://moodle.iu3.bmstu.ru/mod/resource/view.php?id=925"><img alt="Файл" class="smallicon navicon" title="Файл" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fpdf" />Материал для выполнения дополнительного задания #2</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=924"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Дополнительное задание #2</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Задание" href="https://moodle.iu3.bmstu.ru/mod/assignment/view.php?id=926"><img alt="Задание" class="smallicon navicon" title="Задание" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=assignment" />Отправить решение дополнительного задания #2</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Файл" href="https://moodle.iu3.bmstu.ru/mod/resource/view.php?id=927"><img alt="Файл" class="smallicon navicon" title="Файл" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fpdf" />Материал для выполнения дополнительного задания #3</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=928"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Дополнительное задание #3</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Задание" href="https://moodle.iu3.bmstu.ru/mod/assignment/view.php?id=929"><img alt="Задание" class="smallicon navicon" title="Задание" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=assignment" />Отправить решение дополнительного задания #3</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Файл" href="https://moodle.iu3.bmstu.ru/mod/resource/view.php?id=951"><img alt="Файл" class="smallicon navicon" title="Файл" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=f%2Fpdf" />Материал для выполнения дополнительного задания #4</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Страница" href="https://moodle.iu3.bmstu.ru/mod/page/view.php?id=949"><img alt="Страница" class="smallicon navicon" title="Страница" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=page" />Дополнительное задание #4</a></p></li>
+<li class="type_activity depth_5 item_with_icon"><p class="tree_item leaf hasicon"><a title="Задание" href="https://moodle.iu3.bmstu.ru/mod/assignment/view.php?id=952"><img alt="Задание" class="smallicon navicon" title="Задание" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=icon&amp;component=assignment" />Отправить решение дополнительного задания #4</a></p></li></ul></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_2"><span tabindex="0"> 9 Февраль -  15 Февраль</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_3"><span tabindex="0"> 16 Февраль -  22 Февраль</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_4"><span tabindex="0"> 23 Февраль -  1 Март</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_5"><span tabindex="0"> 16 Март -  22 Март</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_6"><span tabindex="0"> 30 Март -  5 Апрель</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_7"><span tabindex="0"> 13 Апрель -  19 Апрель</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_8"><span tabindex="0"> 27 Апрель -  3 Май</span></p></li>
+<li class="type_structure depth_4 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_9"><span tabindex="0"> 4 Май -  10 Май</span></p></li></ul></li></ul></li></ul></li></ul></div></div><span id="sb-1" class="skip-block-to"></span><a href="#sb-2" class="skip-block">Пропустить Настройки</a><div id="inst5" class="block_settings  block"><div class="header"><div class="title"><div class="block_action"></div><h2>Настройки</h2></div></div><div class="content"><div id="settingsnav" class="box block_tree_box"><ul class="block_tree list"><li class="type_course collapsed contains_branch" aria-expanded="false"><p class="tree_item branch root_node"><span tabindex="0">Управление курсом</span></p><ul><li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Оценки" href="https://moodle.iu3.bmstu.ru/grade/report/index.php?id=95"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fgrades" />Оценки</a></p></li></ul></li>
+<li class="type_unknown collapsed contains_branch" aria-expanded="false"><hr /><p class="tree_item branch root_node" id="usersettings"><span tabindex="0">Настройки моего профиля</span></p><ul><li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Редактировать информацию" href="https://moodle.iu3.bmstu.ru/user/edit.php?id=374&amp;course=95"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Редактировать информацию</a></p></li>
+<li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Изменить пароль" href="https://moodle.iu3.bmstu.ru/login/change_password.php?id=95"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Изменить пароль</a></p></li>
+<li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Ключи безопасности" href="https://moodle.iu3.bmstu.ru/user/managetoken.php?sesskey=yajWkgQAHb"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Ключи безопасности</a></p></li>
+<li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Обмен сообщениями" href="https://moodle.iu3.bmstu.ru/message/edit.php?id=374"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Обмен сообщениями</a></p></li>
+<li class="type_unknown collapsed contains_branch" aria-expanded="false"><p class="tree_item branch"><span tabindex="0">Блоги</span></p><ul><li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Настройки" href="https://moodle.iu3.bmstu.ru/blog/preferences.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Настройки</a></p></li>
+<li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Внешние блоги" href="https://moodle.iu3.bmstu.ru/blog/external_blogs.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Внешние блоги</a></p></li>
+<li class="type_setting collapsed item_with_icon"><p class="tree_item leaf"><a title="Зарегистрировать внешний блог" href="https://moodle.iu3.bmstu.ru/blog/external_blog_edit.php"><img alt="" class="smallicon navicon" title="" src="https://moodle.iu3.bmstu.ru/theme/image.php?theme=nonzero&amp;image=i%2Fnavigationitem" />Зарегистрировать внешний блог</a></p></li></ul></li></ul></li></ul></div></div></div><span id="sb-2" class="skip-block-to"></span>                	    </div>
+	                </div>
+    	            
+	                
+        	    </div>
+	        </div>
+    	</div>
+    </div>
+
+</div>
+
+<!-- START OF FOOTER -->
+        <div id="page-footer" class="wrapper">
+        <p class="helplink"></p>
+        <div class="logininfo">Вы зашли под именем <a href="https://moodle.iu3.bmstu.ru/user/profile.php?id=374">Маврин Евгений Михайлович</a>  (<a href="https://moodle.iu3.bmstu.ru/login/logout.php?sesskey=yajWkgQAHb">Выход</a>)</div><div class="homelink"><a href="https://moodle.iu3.bmstu.ru/course/view.php?id=95">TП</a></div>    </div>
+    </div>
+<script type="text/javascript" src="https://moodle.iu3.bmstu.ru/theme/javascript.php?theme=nonzero&amp;rev=-1&amp;type=footer"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"repository":{"add":"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c","back":"&laquo; Back","close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c","cleancache":"Clean my cache files","copying":"Copying","date":"Date","downloadsucc":"\u0424\u0430\u0439\u043b \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043d","emptylist":"Empty list","error":"An unknown error occurred!","federatedsearch":"Federated search","filenotnull":"You must select a file to upload.","getfile":"Select this file","iconview":"\u0412 \u0432\u0438\u0434\u0435 \u0437\u043d\u0430\u0447\u043a\u043e\u0432","invalidjson":"Invalid JSON string","linkexternal":"Link external","listview":"\u0412 \u0432\u0438\u0434\u0435 \u0441\u043f\u0438\u0441\u043a\u0430","loading":"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430...","login":"Login","logout":"Logout","noenter":"Nothing entered","noresult":"No search result","manageurl":"Manage","popup":"Click \"Login\" button to login","preview":"\u041f\u0440\u0435\u0434\u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440","refresh":"\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c","save":"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c","saveas":"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043a\u0430\u043a","saved":"\u0421\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u043e","saving":"\u0418\u0434\u0451\u0442 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u0435","search":"Search","searching":"Search in","size":"Size","submit":"\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c","sync":"Sync","title":"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0430\u0439\u043b...","upload":"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u044d\u0442\u043e\u0442 \u0444\u0430\u0439\u043b","uploading":"\u0418\u0434\u0451\u0442 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0430 \u0444\u0430\u0439\u043b\u0430 \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440...","xhtmlerror":"\u0412\u044b, \u0432\u0435\u0440\u043e\u044f\u0442\u043d\u043e, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0435 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \"XHTML Strict\". \u041d\u0435\u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0438 YUI \u043d\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442 \u0432 \u044d\u0442\u043e\u043c \u0440\u0435\u0436\u0438\u043c\u0435, \u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u043e\u0442\u043a\u043b\u044e\u0447\u0438\u0442\u0435 \u0435\u0433\u043e.","chooselicense":"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u044e","author":"\u0410\u0432\u0442\u043e\u0440","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","norepositoriesexternalavailable":"Sorry, none of your current repositories can return external files.","nofilesattached":"\u041d\u0435 \u043f\u0440\u0438\u043a\u0440\u0435\u043f\u043b\u0451\u043d \u043d\u0438 \u043e\u0434\u0438\u043d \u0444\u0430\u0439\u043b","filepicker":"\u0412\u044b\u0431\u043e\u0440 \u0444\u0430\u0439\u043b\u0430","nofilesavailable":"\u041d\u0435\u0442 \u043d\u0438 \u043e\u0434\u043d\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430","overwrite":"Overwrite","renameto":"Rename to","fileexists":"File name already being used, please use another name","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached"},"moodle":{"cancel":"\u041e\u0442\u043c\u0435\u043d\u0430","help":"\u0421\u043f\u0440\u0430\u0432\u043a\u0430","next":"\u0414\u0430\u043b\u0435\u0435","ok":"OK","error":"\u041e\u0448\u0438\u0431\u043a\u0430","info":"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f","viewallcourses":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0441\u0435 \u043a\u0443\u0440\u0441\u044b","yes":"\u0414\u0430"},"block":{"addtodock":"\u041f\u0435\u0440\u0435\u043c\u0435\u0441\u0442\u0438\u0442\u044c \u0432 \u0434\u043e\u043a","undockitem":"\u0423\u0431\u0440\u0430\u0442\u044c \u044d\u0442\u043e\u0442 \u044d\u043b\u0435\u043c\u0435\u043d\u0442 \u0438\u0437 \u0434\u043e\u043a\u0430","undockall":"\u0423\u0431\u0440\u0430\u0442\u044c \u0432\u0441\u0435 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0438\u0437 \u0434\u043e\u043a\u0430","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+var navtreeexpansions4 = [{"id":"expandable_branch_1","key":"107","type":20},{"id":"expandable_branch_2","key":"2054","type":30},{"id":"expandable_branch_3","key":"2055","type":30},{"id":"expandable_branch_4","key":"2056","type":30},{"id":"expandable_branch_5","key":"2059","type":30},{"id":"expandable_branch_6","key":"2061","type":30},{"id":"expandable_branch_7","key":"2063","type":30},{"id":"expandable_branch_8","key":"2065","type":30},{"id":"expandable_branch_9","key":"2066","type":30}];
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+YUI(M.yui.loader).use('node', function(Y) {
+M.util.load_flowplayer();
+setTimeout("fix_column_widths()", 20);
+function legacy_activity_onclick_handler_1(e) { e.halt(); window.location.href ='https://moodle.iu3.bmstu.ru/mod/url/view.php?id=29&redirect=1';return false; };
+function legacy_activity_onclick_handler_2(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=558&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+function legacy_activity_onclick_handler_3(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=559&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+function legacy_activity_onclick_handler_4(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=561&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+function legacy_activity_onclick_handler_5(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=562&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+function legacy_activity_onclick_handler_6(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=563&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+function legacy_activity_onclick_handler_7(e) { e.halt(); window.open('https://moodle.iu3.bmstu.ru/mod/url/view.php?id=656&redirect=1', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false; };
+M.yui.galleryversion="2010.04.08-12-35";Y.use("core_dock","moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"4","instance":"4","candock":true,"courselimit":"20","expansionlimit":0});
+});
+M.yui.galleryversion="2010.04.08-12-35";Y.use("core_dock","moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"5","instance":"5","candock":true});
+});
+M.util.init_block_hider(Y, {"id":"inst4","title":"\u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f","preference":"block4hidden","tooltipVisible":"\u0421\u043a\u0440\u044b\u0442\u044c \u0431\u043b\u043e\u043a \u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f","tooltipHidden":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0431\u043b\u043e\u043a \u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f"});
+M.util.init_block_hider(Y, {"id":"inst5","title":"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438","preference":"block5hidden","tooltipVisible":"\u0421\u043a\u0440\u044b\u0442\u044c \u0431\u043b\u043e\u043a \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438","tooltipHidden":"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0431\u043b\u043e\u043a \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"});
+Y.on('click', legacy_activity_onclick_handler_1, "#action_link55b35dd44a3331", null);
+Y.on('click', legacy_activity_onclick_handler_2, "#action_link55b35dd44a3332", null);
+Y.on('click', legacy_activity_onclick_handler_3, "#action_link55b35dd44a3333", null);
+Y.on('click', legacy_activity_onclick_handler_4, "#action_link55b35dd44a3334", null);
+Y.on('click', legacy_activity_onclick_handler_5, "#action_link55b35dd44a3335", null);
+Y.on('click', legacy_activity_onclick_handler_6, "#action_link55b35dd44a3336", null);
+Y.on('click', legacy_activity_onclick_handler_7, "#action_link55b35dd44a3337", null);
+
+});
+//]]>
+</script>
+</body>
+</html>

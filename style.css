@@ -1,0 +1,19 @@
+body {
+	font-size: 230%;
+	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+table {
+	text-align: center;
+	margin: auto;
+	width: 80%
+}
+a {
+	color: #0099FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #6699CC;
+}
+td {
+	width: 20%;
+}
