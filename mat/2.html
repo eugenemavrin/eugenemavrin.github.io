@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>TП: Настройка программы проверки стиля checkstyle</title>
+        <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="stylem.css">
+</head>
+<body>
+<p>Настройка программы проверки стиля checkstyle</p><div class="box generalbox center clearfix"><div class="no-overflow"><p><span style="color: #333399;"><strong><span style="line-height: 1.4;">Расположение фигурных скобок на одной строке с оператором или на другой настраивается тегом:</span></strong></span></p>
+<pre>&lt;module name="LeftCurly"/&gt;
+</pre>
+<p>в файле sun_checks.xml</p>
+<p style="line-height: 1.4;">В руководстве по стилю программ на языке java (по умолчанию в sun_checks.xml) указано что в заданиях этого курса открывающая скобка ставится на одной строке с оператором. Надо делать именно так.</p>
+<p style="line-height: 1.4;"><strong><span style="line-height: 1.4; color: #333399;">Ошибка "Missing package-info.java file".</span></strong></p>
+<p>Можно ее игнорировать или в файле sun_checks.xml закомментировать тэг</p>
+<pre>&lt;!--module name="JavadocPackage"/--&gt;
+</pre>
+<p><strong><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333399;">Ошибка "Parameter &lt;...&gt; Should be final".</span></strong></p>
+<p><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">В java как и в других языках не принято изменять значения параметров переданных функции. Это повышает вероятность ошибок. В java имеется (по мнению многих избыточный) синтаксис использующийся для того чтобы избежать случайного изменения параметров внутри функции. Все (именно все) параметры функции должны иметь модификатор <strong>final</strong>. Тогда компилятор, встретив в коде оператор присвоения нового значения аргументу функции выдаст ошибку. </span><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;"><span style="color: #ff0000;">НИКОГДА НЕ МЕНЯЙТЕ ЗНАЧЕНИЯ АРГУМЕНТОВ ВНУТРИ ФУНКЦИИ!</span> Но если вам лень вставлять при объявлении аргументов функций <string>final можете этого не делать в заданиях этого курса. Просто игнорируйте ошибку или закомментируйте тэг</string></span></p>
+<pre>&lt;!--module name="FinalParameters"/--&gt;
+</pre>
+<p><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">в файле sun_checks.xml</span></p>
+<p><strong><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333399;">В заданиях этого курса в условных операторах и циклах, тело которых состоит только из одного оператора использовать фигурные скобки необязательно. </span></strong></p>
+<p><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">Однако, в последних версиях checkstyle скобки требуются всегда. Объяснение смотрите </span><a href="http://old.nabble.com/Re%3A-Checkstyle-now-requires-braces-for-single-line-conditionals-td18541820.html" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">здесь</a><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">. Можете игнорировать эту ошибку, однако, все же лучше вставлять скобки, чтобы не пропустить другие ошибки в отчете checkstyle.</span></p>
+<p><span style="color: #333399;"><strong><span style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4;">Ошибка "Utility classes should not have a public or default constructor".</span></strong></span></p>
+<p>Закомментируйте тэг</p>
+<pre>&lt;!--module name="HideUtilityClassConstructor"/--&gt;
+</pre>
+<p>в файле sun_checks.xml.</p>
+<p><span style="color: #333399;"><strong>Ссылки:</strong></span></p>
+<p><a href="https://dl.dropbox.com/u/57328246/java/checkstyle/sun_checks.xml">Конфигурация checkstyle, отредактированная по приведенному выше описанию</a><br /><a href="https://dl.dropbox.com/u/57328246/java/checkstyle/HelloWorldApp.java">Пример правильно отформатированного файла Java</a></p>
+</div>
+</div>
+</body>
+</html>

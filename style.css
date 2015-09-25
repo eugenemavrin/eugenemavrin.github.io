@@ -1,5 +1,5 @@
 body {
-	font-size: 230%;
+	font-size: 200%;
 	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 table {
@@ -17,3 +17,7 @@ a:hover {
 td {
 	width: 20%;
 }
+p {
+	text-align: center;
+}
+h1

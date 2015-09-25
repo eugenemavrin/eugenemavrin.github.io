@@ -1,0 +1,21 @@
+body {
+	text-align: left;
+	color: #000000;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 3%;
+	font-family: Arial, Helvetica, sans-serif;
+}
+pre {
+	background: #F6F6F6;
+	padding-top: 8px;
+	padding-bottom: 8px; 
+	padding-left: 8px;
+}
+a {
+	color: #0099FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #6699CC;
+}

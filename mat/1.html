@@ -1,0 +1,131 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>TП: Запуск программ Java и обработка аргументов командной строки</title>
+    <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="stylem.css">
+</head>
+<body>
+<p>Запуск программ Java и обработка аргументов командной строки</p>
+<p>Чтобы запустить Java программу следует указать имя класса Java в командной строке. Например, допустим, имеется такой класс:</p>
+<pre>    public class MyProgram {
+        ...
+
+        // Точка входа в мою программу.
+        public static void main(String[] args) {
+            ...  // Код моей программы.
+        }
+    }
+</pre>
+<p>(Этот код должен храниться в файле <span style="color: #333399; font-family: 'courier new', courier, monospace;">MyProgram.java</span>, и компилироваться по команде</p>
+<pre>    java MyProgram 1234 www.caltech.edu "olive festival"
+</pre>
+<p>Для запуска этого Java кода, надо вызвать виртуальную машину (Java Virtual Machine/JVM) с командой:</p>
+<pre>    java MyProgram
+</pre>
+<p>JVM загрузит MyProgram.class, и начнет исполнение вашей программы, начиная с метода main.  Это <i>точка</i><i> </i><i>входа</i> в программу.</p>
+<p>Метод main должен быть объявлен по определенным правилам, для того чтобы JVM смогла отличить его от других методов класса. Он должен иметь модификаторы public и static,иметь один аргумент типа String[] и не возвращать значения (void). Если в классе метод main в точности соответствующий этому описанию, при попытке запуска программы вам вернется сообщение об ошибке:</p>
+<pre>    java MyProgram
+</pre>
+<p>    Exception in thread "main" java.lang.NoSuchMethodError: main</p>
+<p>Если вы видите такую ошибку, проверьте правильно ли вы объявили в тексте программы метод  main. В нашем примере все сделано правильно.</p>
+<p><b>Аргументы командной строки</b></p>
+<p>Часто, в программе требуется обработать аргументы, указанные в командной строке. Например, программу можно запустить так:</p>
+<pre>    java MyProgram 1234 www.caltech.edu "olive festival"</pre>
+<p>Программе нужно как то получить доступ к значениям указанным в командной строке. Это можно сделать через аргумент типа String[], который передается методу main. Заметим, что это массив строк. Каждый элемент в массиве содержит одно из значений указанных в командной строке.</p>
+<p>Для приведенного выше примера, массив args будет содержать следующие значения:</p>
+<pre>args.length = 3
+args[0] = "1234"
+args[1] = "www.caltech.edu"
+args[2] = "olive festival"
+</pre>
+<p>Аргументы Java программы разделяются пробелами или символами табуляции, кроме случая, кода они заключены в двойные кавычки. В нашем примере, первые два аргумента: "1234" и "www.caltech.edu", так как Java VM разделяет их, с помощью пробела. Третий аргумент, "olive festival", не разбивается на отельные аргументы, так как он заключен в двойные кавычки.</p>
+<p>Учтите, что пробелы, расположенные между аргументами, а также в начале и конце списка аргументов, удаляются и не присутствуют в массиве args. В массив также не попадают двойные кавычки, в которые заключены аргументы.</p>
+<p>(Если вы программировали на C или C++,  вы должны заметить разницу между тем как аргументы передаются программам на C и C++,  и как они передаются программам на языке Java. В C и C++, первый элемент массива argv[0] это <i>имя самой программы</i>, а argv[1] первый аргумент командной строки программы. В Java, args[0] это первый аргумент командной строки программы а имя программы отсутствует в аргументах.)</p>
+<p><b>Числа</b><b> </b><b>в</b><b> </b><b>командной</b><b> </b><b>строке</b><b></b></p>
+<p>Если программа на языке Java получает числовые параметры через командную строку, она должна явно преобразовать строковое представление числа в значение числового типа. Вернемся к нашему примеру. В командной строке, первый аргумент "1234", имеет тип String. Его требуется преобразовать в целое число. Для выполнения таких преобразований используют класса из пакета java.lang . Например, для преобразования args[0] в целое число, можно сделать так:</p>
+<pre>    public static void main(String[] args) {
+        int num = 0;
+
+        ...
+
+        try {
+            // Преобразовать строку в целое.
+            num = Integer.parseInt(args[0]);
+        }
+        catch (NumberFormatException nfe) {
+            // Первый аргумент командной строки не целое число.  Выводим
+            // сообщение об ошибке и завершаем работу.
+            System.out.println("Первый аргумент должен быть целым числом.");
+            System.exit(1);
+        }
+
+        ...  // Код использующий значения аргументов командной строки.
+    }
+</pre>
+<p>К этому коду есть несколько важных замечаний:</p>
+<ul>
+<ul>
+<ul>
+<li>Наиболее важно здесь, то что вы <i>обязаны обрабатывать ошибки ввода пользователя</i><i>!</i> Функция преобразования строки в целое число выдает исключение java.lang.NumberFormatException в случае ошибки преобразования. Ваша программа не должна “падать” в случае если во входных данных имеются ошибки. Вместо этого, следует перехватить исключение, напечатать на экране понятное сообщение об ошибке, и затем завершить программу с кодом отличным от нуля.</li>
+<li>Второе важное замечание заключается в том, что переменная num объявлена и проинициализирована перед блоком try/catch.</li>
+</ul>
+</ul>
+</ul>
+<p>Переменная должна быть <i>объявлена</i> перед блоком try/catch потому что она используется после того как блок завершит работу; если объявить ее внутри блока, она будет доступна только внутри блока.</p>
+<p>Переменная должна быть проинициализирована перед блоком try/catch потому что, если этого не сделать, компилятор Java выдаст сообщение о "не инициализированной переменной " во время компиляции.</p>
+<p>Ниже приведен не полных список примитивных типов данных и функций которые можно использовать для преобразования аргументов командной строки. Эти классы находятся в пакете java.lang, и следовательно доступны без добавления каких либо директив import к программе. Функции преобразования статические и это значит, что вам не надо создавать какие либо новые объекты, прежде чем вызывать эти функции.</p>
+<table border="0" cellpadding="0" style="width: 1407px;">
+<tbody>
+<tr>
+<td width="217">
+<p><span style="font-family: verdana, arial, helvetica, sans-serif; font-size: small;">Примитивный тип данных</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: verdana, arial, helvetica, sans-serif; font-size: small;">Функция преобразования</span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">boolean</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Boolean.html#parseBoolean(java.lang.String)">boolean Boolean.parseBoolean(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">Int</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Integer.html#parseInt(java.lang.String)">int Integer.parseInt(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">Long</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Long.html#parseLong(java.lang.String)">long Long.parseLong(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">float</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Float.html#parseFloat(java.lang.String)">float Float.parseFloat(String)</a></span></p>
+</td>
+</tr>
+<tr>
+<td width="217">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;">double</span></p>
+</td>
+<td width="1184">
+<p><span style="font-family: 'courier new', courier, monospace; font-size: small;"><a href="http://java.sun.com/javase/6/docs/api/java/lang/Double.html#parseDouble(java.lang.String)">double Double.parseDouble(String)</a></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
