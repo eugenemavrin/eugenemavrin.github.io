@@ -1,0 +1,19 @@
+
+div {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+p {
+    color: #000000;
+    font-size:3em;
+}
+
+a {
+    color: #003366
+}
